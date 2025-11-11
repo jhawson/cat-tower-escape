@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkq3xr8yh5wm7"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://ddeirraheumj1" path="res://assets/sprites/cat_player.png" id="2_cat_sprite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(40, 60)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 1
+collision_mask = 6
+script = ExtResource("1_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cat_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
