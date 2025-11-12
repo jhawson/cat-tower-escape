@@ -1,5 +1,9 @@
 extends CanvasLayer
 
+signal game_started
+
+@onready var opening_panel = $OpeningPanel
+@onready var start_button = $OpeningPanel/VBoxContainer/StartButton
 @onready var invincibility_label = $InvincibilityLabel
 @onready var height_label = $HeightLabel
 @onready var game_over_panel = $GameOverPanel
@@ -9,10 +13,14 @@ extends CanvasLayer
 @onready var victory_restart_button = $VictoryPanel/RestartButton
 
 func _ready():
+	opening_panel.show()
 	game_over_panel.hide()
 	victory_panel.hide()
 	invincibility_label.hide()
+	height_label.hide()
 
+	if start_button:
+		start_button.pressed.connect(_on_start_pressed)
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_pressed)
 	if victory_restart_button:
@@ -50,6 +58,12 @@ func show_game_over(message: String = "Kitty was hit by flaming yarn!"):
 
 func show_victory():
 	victory_panel.show()
+
+func _on_start_pressed():
+	opening_panel.hide()
+	invincibility_label.show()
+	height_label.show()
+	game_started.emit()
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()

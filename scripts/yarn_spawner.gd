@@ -8,12 +8,12 @@ extends Node2D
 @onready var spawn_timer = $SpawnTimer
 
 var camera_top_y = 0.0
-var is_active = true
+var is_active = false  # Start inactive, wait for game to begin
 var game_time = 0.0  # Track elapsed time in seconds
 
 func _ready():
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	spawn_timer.start(randf_range(spawn_interval_min, spawn_interval_max))
+	# Don't start timer automatically - wait for start_spawning() call
 
 func _process(delta):
 	if is_active:
@@ -21,6 +21,10 @@ func _process(delta):
 
 func set_camera_top(y_pos: float):
 	camera_top_y = y_pos
+
+func start_spawning():
+	is_active = true
+	spawn_timer.start(randf_range(spawn_interval_min, spawn_interval_max))
 
 func stop_spawning():
 	is_active = false

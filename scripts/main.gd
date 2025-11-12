@@ -13,6 +13,7 @@ const DEATH_ZONE_Y = 200  # Kitty dies if she falls below y=200 (below starting 
 
 var game_over = false
 var victory = false
+var game_started = false
 var target_camera_y = 0.0
 
 func _ready():
@@ -23,8 +24,9 @@ func _ready():
 	# Connect victory zone
 	victory_zone.body_entered.connect(_on_victory_zone_entered)
 
-	# Start background music
-	AudioManager.play_music("main_theme")
+	# Connect UI game start signal
+	if ui:
+		ui.game_started.connect(_on_game_started)
 
 	# Position victory zone at top
 	victory_zone.global_position.y = -TOWER_HEIGHT
@@ -33,8 +35,11 @@ func _ready():
 	camera.global_position = player.global_position
 	target_camera_y = player.global_position.y
 
+	# Disable player physics until game starts
+	player.set_physics_process(false)
+
 func _process(delta):
-	if game_over or victory:
+	if not game_started or game_over or victory:
 		return
 
 	# Check if player fell off the tower
@@ -103,6 +108,13 @@ func _on_victory_zone_entered(body):
 		player.victory()
 		if ui:
 			ui.show_victory()
+
+func _on_game_started():
+	game_started = true
+	player.set_physics_process(true)
+	if yarn_spawner:
+		yarn_spawner.start_spawning()
+	AudioManager.play_music("main_theme")
 
 func restart_game():
 	get_tree().reload_current_scene()
