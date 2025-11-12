@@ -11,6 +11,9 @@ const CAMERA_DEADZONE_HEIGHT = 180  # 25% of screen height (720 * 0.25)
 const CAMERA_SMOOTH_SPEED = 5.0  # How fast camera catches up
 const DEATH_ZONE_Y = 200  # Kitty dies if she falls below y=200 (below starting platform)
 
+# DEBUG: Set to 0.0 for normal start, or 0.0-1.0 to start at that height percentage (e.g., 0.95 for 95%)
+const DEBUG_START_HEIGHT_PERCENT = 0.95
+
 var game_over = false
 var victory = false
 var game_started = false
@@ -30,6 +33,10 @@ func _ready():
 
 	# Position victory zone at top
 	victory_zone.global_position.y = -TOWER_HEIGHT
+
+	# DEBUG: Start player at specified height percentage
+	if DEBUG_START_HEIGHT_PERCENT > 0.0:
+		player.global_position.y = -TOWER_HEIGHT * DEBUG_START_HEIGHT_PERCENT
 
 	# Initialize camera position to player
 	camera.global_position = player.global_position
