@@ -38,10 +38,6 @@ position = Vector2(0, -3600)
 scale = Vector2(0.2, 360)
 shape = SubResource("RectangleShape2D_platform")
 
-[node name="Sprite2D" type="Sprite2D" parent="TowerWalls/LeftWall/CollisionShape2D"]
-scale = Vector2(0.625, 337.5)
-texture = ExtResource("9_wall_sprite")
-
 [node name="RightWall" type="StaticBody2D" parent="TowerWalls" groups=["world"]]
 position = Vector2(620, 0)
 collision_layer = 2
@@ -50,10 +46,6 @@ collision_layer = 2
 position = Vector2(0, -3600)
 scale = Vector2(0.2, 360)
 shape = SubResource("RectangleShape2D_platform")
-
-[node name="Sprite2D" type="Sprite2D" parent="TowerWalls/RightWall/CollisionShape2D"]
-scale = Vector2(0.625, 337.5)
-texture = ExtResource("9_wall_sprite")
 
 [node name="Platforms" type="Node2D" parent="."]
 [node name="Platform0" type="StaticBody2D" parent="Platforms" groups=["world"]]
@@ -978,28 +970,9 @@ collision_layer = 0
 position = Vector2(0, -70)
 shape = SubResource("RectangleShape2D_victory")
 
-[node name="GardenSprite1" type="Sprite2D" parent="VictoryZone"]
+[node name="GardenSprite" type="Sprite2D" parent="VictoryZone"]
 z_index = -1
-position = Vector2(-480, 0)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("11_garden")
-
-[node name="GardenSprite2" type="Sprite2D" parent="VictoryZone"]
-z_index = -1
-position = Vector2(-160, 0)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("11_garden")
-
-[node name="GardenSprite3" type="Sprite2D" parent="VictoryZone"]
-z_index = -1
-position = Vector2(160, 0)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("11_garden")
-
-[node name="GardenSprite4" type="Sprite2D" parent="VictoryZone"]
-z_index = -1
-position = Vector2(480, 0)
-scale = Vector2(0.25, 0.25)
+position = Vector2(0, -280)
 texture = ExtResource("11_garden")
 
 [node name="GardenPlatform" type="StaticBody2D" parent="VictoryZone" groups=["world"]]
