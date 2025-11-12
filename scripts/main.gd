@@ -12,7 +12,7 @@ const CAMERA_SMOOTH_SPEED = 5.0  # How fast camera catches up
 const DEATH_ZONE_Y = 200  # Kitty dies if she falls below y=200 (below starting platform)
 
 # DEBUG: Set to 0.0 for normal start, or 0.0-1.0 to start at that height percentage (e.g., 0.95 for 95%)
-const DEBUG_START_HEIGHT_PERCENT = 0.95
+const DEBUG_START_HEIGHT_PERCENT = 0.005
 
 var game_over = false
 var victory = false
