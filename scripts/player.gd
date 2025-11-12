@@ -9,6 +9,7 @@ const JUMP_VELOCITY = -500.0
 
 var is_invincible = false
 var is_victorious = false
+var is_dead = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 signal hit_by_yarn
@@ -78,21 +79,31 @@ func _on_invincibility_timeout():
 		sprite.modulate.a = 1.0
 
 func hit_by_flaming_yarn():
-	if not is_invincible:
+	if not is_invincible and not is_dead:
 		AudioManager.play_sound("hit")
 		hit_by_yarn.emit()
 		die()
 
 func die():
+	is_dead = true
 	set_physics_process(false)
 
-	# Disable collision with fireballs and everything else
+	# Disable all collisions
+	collision_layer = 0
 	collision_mask = 0
 
-	# Fade out sprite over 10 seconds
+	# Immediately turn greyscale and fade out over 10 seconds
 	if sprite:
+		# Apply greyscale shader
+		var shader = load("res://shaders/greyscale.gdshader")
+		var shader_material = ShaderMaterial.new()
+		shader_material.shader = shader
+		shader_material.set_shader_parameter("saturation", 0.0)
+		sprite.material = shader_material
+
+		# Fade out over 5 seconds (50% faster)
 		var tween = create_tween()
-		tween.tween_property(sprite, "modulate:a", 0.0, 10.0)
+		tween.tween_property(sprite, "modulate:a", 0.0, 5.0)
 
 	# Animation would play here if set up
 	# if animation_player and animation_player.has_animation("death"):
