@@ -103,15 +103,8 @@ func get_invincibility_time_remaining():
 	return invincibility_timer.time_left if is_invincible else 0.0
 
 func victory():
-	is_victorious = true
-
 	# Stop any invincibility flashing
 	if sprite:
 		sprite.modulate.a = 1.0
 
-	# Wait 30 seconds then fade out
-	await get_tree().create_timer(30.0).timeout
-
-	if sprite:
-		var tween = create_tween()
-		tween.tween_property(sprite, "modulate:a", 0.0, 2.0)
+	# Kitty can now walk freely in the garden - don't freeze or fade out

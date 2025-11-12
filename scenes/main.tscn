@@ -956,18 +956,6 @@ one_way_collision = true
 scale = Vector2(3.906, 1.818)
 texture = ExtResource("8_platform_sprite")
 
-[node name="Platform75" type="StaticBody2D" parent="Platforms" groups=["world"]]
-position = Vector2(-132, -7159)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform75"]
-shape = SubResource("RectangleShape2D_platform")
-one_way_collision = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform75/CollisionShape2D"]
-scale = Vector2(3.906, 1.818)
-texture = ExtResource("8_platform_sprite")
-
 [node name="Collectibles" type="Node2D" parent="."]
 script = ExtResource("7_catnip_placer")
 catnip_scene = ExtResource("6_catnip")
@@ -987,6 +975,7 @@ position = Vector2(0, -7200)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VictoryZone"]
+position = Vector2(0, -70)
 shape = SubResource("RectangleShape2D_victory")
 
 [node name="GardenSprite1" type="Sprite2D" parent="VictoryZone"]
@@ -1012,5 +1001,13 @@ z_index = -1
 position = Vector2(480, 0)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("11_garden")
+
+[node name="GardenPlatform" type="StaticBody2D" parent="VictoryZone" groups=["world"]]
+position = Vector2(0, 100)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VictoryZone/GardenPlatform"]
+shape = SubResource("RectangleShape2D_victory")
+one_way_collision = true
 
 [node name="UI" parent="." instance=ExtResource("5_ui")]

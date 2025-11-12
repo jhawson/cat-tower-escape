@@ -46,12 +46,12 @@ func _ready():
 	player.set_physics_process(false)
 
 func _process(delta):
-	if not game_started or game_over or victory:
+	if not game_started or game_over:
 		return
 
-	# Check if player fell off the tower
+	# Check if player fell off the tower (but not if they've reached victory)
 	var player_y = player.global_position.y
-	if player_y > DEATH_ZONE_Y:
+	if not victory and player_y > DEATH_ZONE_Y:
 		_on_player_fell()
 		return
 
